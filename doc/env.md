@@ -1,4 +1,5 @@
-# Env
+# Go 프로젝트 구성
+
 ## GO111MODULE 설정
 - off - 빌드 중에 $GOPATH에 있는 패키지를 사용합니다.
 - on - 빌드 중에 $GOPATH 대신 모듈에 있는 패키지를 사용합니다.
@@ -19,8 +20,9 @@ mkdir bin pkg src
 export GOPATH=$(pwd)
 export PATH=$PATH:$GOPATH/bin
 ```
+
 ## GO 실행 프로그램
-- 프로젝트 구성
+- 소스
 ```
 mkdir -p $GOPATH/src/github.com/GunSik2/hellogo/firstapp
 vi src/github.com/GunSik2/hellogo/firstapp/hello.go
@@ -44,7 +46,7 @@ $GOPATH/bin/firstapp
 ```
 
 ## GO 라이브러리
-- 프로젝트 구성
+- 소스
 ```
 mkdir -p $GOPATH/src/github.com/GunSik2/hellogo/stringutil
 vi src/github.com/GunSik2/stringutil/reverse.go
@@ -104,6 +106,47 @@ src
                 └── reverse.go
 ```
 
+## 테스트 프로그램
+- 소스 : "_test.go" 로 끝나는 파일을 생성
+```
+vi src/github.com/GunSik2/hellogo/stringutil/reverse_test.go
+--
+package stringutil
+
+import "testing"
+
+func TestReverse(t *testing.T) {
+	cases := []struct {
+		in, want string
+	}{
+		{"Hello, world", "dlrow ,olleH"},
+		{"Hello, 世界", "界世 ,olleH"},
+		{"", ""},
+	}
+	for _, c := range cases {
+		got := Reverse(c.in)
+		if got != c.want {
+			t.Errorf("Reverse(%q) == %q, want %q", c.in, got, c.want)
+		}
+	}
+}
+---
+```
+- 테스트 실행
+```
+go test github.com/GunSik2/hellogo/stringutil
+(cd github.com/GunSik2/hellogo/stringutil; go test)
+```
+## 외부 패키지 사용
+- 외부 Git 패키지 다운로드 후 자동으로 빌드 & 인스톨 
+  - 패키지 상세: https://pkg.go.dev/github.com/golang/example
+```
+go get github.com/golang/example/hello
+$GOPATH/bin/hello
+```
+
+## 패키지 찾기
+- https://pkg.go.dev/
 
 ## Reference
 - https://www.youtube.com/watch?v=YS4e4q9oBaU
