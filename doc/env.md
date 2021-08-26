@@ -148,6 +148,92 @@ $GOPATH/bin/hello
 ## 패키지 찾기
 - https://pkg.go.dev/
 
+## Makefile 사용
+- 소스 : [hellogo/helloserver/Makefile](../helloserver/Makefile)
+- 실행 
+```
+$ make help
+Usage: 
+
+  build                     build the application
+  run                       runs go run main.go
+  clean                     cleans the binary
+  test                      runs go test with default values
+  build-tokenizer           build the tokenizer application
+  setup                     setup go modules
+  docker-build              builds the application docker image to registry
+  docker-build-multistage   builds the application docker image to registry
+  docker-push               pushes the application docker image to registry
+  help                      Prints this help message
+```
+- 사용 예시
+```
+$ make setup
+$ make build
+$ make run
+$ make test
+$ make docker-build
+$ make docker-push
+```
+
+## Docker 이미지 생성
+- 소스: [hellogo/helloserver/Dockerfile](../helloserver/Dockerfile)
+```
+FROM golang:1.16-alpine
+
+WORKDIR /app
+
+COPY go.mod go.sum* .
+RUN go mod download
+
+COPY *.go ./
+
+RUN go build -o /helloserver
+
+EXPOSE 8080
+
+CMD [ "/helloserver" ]
+```
+
+## Kubernetes 배포
+- 소스: [hellogo/helloserver/deployment.yml](../helloserver/deployment.yml)
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: helloserver
+spec:
+  selector:
+    app: helloserver
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloserver
+  labels:
+    app: helloserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloserver
+  template:
+    metadata:
+      labels:
+        app: helloserver
+    spec:
+      containers:
+      - name: helloserver
+        image: GunSik2/helloserver:latest
+        ports:
+        - containerPort: 80
+```
+
 ## Reference
 - https://www.youtube.com/watch?v=YS4e4q9oBaU
 - https://golang.org/doc/gopath_code
