@@ -6,7 +6,6 @@ import (
 )
 
 
-
 func main() {
 	fmt.Println(stringutil.Reverse(".dlrow ,olleH"))
 }
