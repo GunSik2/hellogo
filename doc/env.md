@@ -24,8 +24,8 @@ export PATH=$PATH:$GOPATH/bin
 ## GO 실행 프로그램
 - 소스
 ```
-mkdir -p $GOPATH/src/github.com/GunSik2/hellogo/firstapp
-vi src/github.com/GunSik2/hellogo/firstapp/hello.go
+mkdir -p $GOPATH/src/github.com/GunSik2/hellogo/hellocli
+vi src/github.com/GunSik2/hellogo/hellocli/main.go
 ---
 package main
 
@@ -38,11 +38,11 @@ func main() {
 ```
 - 빌드 & 인스톨
 ```
-go install github.com/GunSik2/hellogo/firstapp
+go install github.com/GunSik2/hellogo/hellocli
 ```
 - 실행
 ```
-$GOPATH/bin/firstapp
+$GOPATH/bin/hellocli
 ```
 
 ## GO 라이브러리
@@ -70,7 +70,7 @@ go build github.com/GunSik2/hellogo/stringutil
 ```
 - 실행 프로그램 수정 (라이브러리 호출)
 ```
-vi src/github.com/GunSik2/hellogo/firstapp/hello.go
+vi src/github.com/GunSik2/hellogo/hellocli/main.go
 ---
 package main
 
@@ -86,22 +86,22 @@ func main() {
 ```
 - 빌드 & 인스톨
 ```
-go install github.com/GunSik2/hellogo/firstapp
+go install github.com/GunSik2/hellogo/hellocli
 ```
 - 실행
 ```
-$GOPATH/bin/firstapp
+$GOPATH/bin/hellocli
 ```
 - 디렉토리 구조
 ```
 bin
-├── firstapp
+├── hellocli
 src
 └── github.com
     └── GunSik2
         └── hellogo
-            ├── firstapp
-            │   └── hello.go
+            ├── hellocli
+            │   └── main.go
             └── stringutil
                 └── reverse.go
 ```
