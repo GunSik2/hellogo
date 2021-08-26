@@ -41,17 +41,17 @@ setup:
 		&& go mod vendor
 	
 .PHONY: docker-build
-## docker-build: builds the stringifier docker image to registry
+## docker-build: builds the application docker image to registry
 docker-build: build
 	docker build -t ${REGISTRY}/${APP}:${COMMIT_SHA} .
 
 .PHONY: docker-build-multistage
-## docker-build-multistage: builds the stringifier docker image to registry
+## docker-build-multistage: builds the application docker image to registry
 docker-build-multistage: build
 	docker build -t ${REGISTRY}/${APP}:${COMMIT_SHA} -f Dockerfile.multistage .
 
 .PHONY: docker-push
-## docker-push: pushes the stringifier docker image to registry
+## docker-push: pushes the application docker image to registry
 docker-push: docker-build
 	docker push ${REGISTRY}/${APP}:${COMMIT_SHA}
 
@@ -62,4 +62,3 @@ help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
 
 
-## https://danishpraka.sh/2019/12/07/using-makefiles-for-go.html	
