@@ -45,6 +45,11 @@ setup:
 docker-build: build
 	docker build -t ${REGISTRY}/${APP}:${COMMIT_SHA} .
 
+.PHONY: docker-build-multistage
+## docker-build-multistage: builds the stringifier docker image to registry
+docker-build-multistage: build
+	docker build -t ${REGISTRY}/${APP}:${COMMIT_SHA} -f Dockerfile.multistage .
+
 .PHONY: docker-push
 ## docker-push: pushes the stringifier docker image to registry
 docker-push: docker-build
