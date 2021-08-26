@@ -151,3 +151,5 @@ $GOPATH/bin/hello
 ## Reference
 - https://www.youtube.com/watch?v=YS4e4q9oBaU
 - https://golang.org/doc/gopath_code
+- [Rancher Go Pipleline Example](https://github.com/rancher/pipeline-example-go)
+- [Docker's Go Language Guide](https://docs.docker.com/language/golang/build-images/)
